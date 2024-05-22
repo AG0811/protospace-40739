@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
       # 今回の実装には関係ありませんが、このようにPrefixでパスを指定することが望ましいです
       # redirect_to tweet_path(@comment.tweet)
     else
-      # @comments = @prototype.comments.includes(:user)
+      @comments = @prototype.comments.includes(:user)
       # views/tweets/show.html.erbのファイルを参照しています。
       flash[:alert] = @comment.errors.full_messages.join(', ')
       # render "tweets/show"
@@ -29,7 +29,6 @@ class CommentsController < ApplicationController
   end
   def comment_params
     # params.require(:comment).permit(:content).merge(user_id: current_user.id, prototype_id: @prototype.id)
-
     params.require(:comment).permit(:content).merge(user_id: current_user.id, prototype_id: params[:prototype_id])
   end
 end

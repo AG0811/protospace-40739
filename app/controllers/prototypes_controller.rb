@@ -27,10 +27,11 @@ class PrototypesController < ApplicationController
   def show
     @prototype = Prototype.find(params[:id])
     @comment = Comment.new
+    # @comments = @prototype.comments.includes(:user) #不要？
   end
   def edit
     # @prototype = Prototype.find(params[:id])
-    unless current_user == @prototype.user
+    unless current_user == @prototype.user || current_user ==nil
       redirect_to action: :index
       # redirect_to root_path, alert: "他のユーザーのプロトタイプは編集できません"
     end
